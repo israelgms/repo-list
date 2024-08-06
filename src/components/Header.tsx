@@ -6,7 +6,9 @@ export function Header({}) {
       <input type="text" placeholder="Buscar usuário" />
 
       <Link href="/favorites">
-        <div>Favoritos</div>
+        <div className="bg-primary p-6 text-secondary-LIGHT font-medium">
+          Favoritos
+        </div>
       </Link>
 
       <hr></hr>
