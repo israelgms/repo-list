@@ -1,14 +1,18 @@
 import { getRepositoryListByUserName } from "@/app/actions";
 import { RepositoryItem } from "./RepositoryItem";
 import React from "react";
+import { RepositoryIntersectionObserver } from "./RepositoryIntersectionObserver";
+
 
 interface RepositoryListProps {
   userName?: string;
+  page?: number;
 }
 
-export async function RepositoryList({ userName }: RepositoryListProps) {
+export async function RepositoryList({ userName, page }: RepositoryListProps) {
   const repositoryList = await getRepositoryListByUserName({
     userName,
+    page,
   });
 
   return (
@@ -19,6 +23,8 @@ export async function RepositoryList({ userName }: RepositoryListProps) {
           <RepositoryItem {...repository} />
         </React.Fragment>
       ))}
+
+      {repositoryList?.length > 5 && <RepositoryIntersectionObserver />}
     </div>
   );
 }

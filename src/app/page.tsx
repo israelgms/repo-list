@@ -1,18 +1,19 @@
 import { RepositoryList } from "@/components/RepositoryList";
-import Image from "next/image";
 
 interface HomeProps {
   searchParams: {
     search: string;
+    page?: number;
   };
 }
 
 export default function Home({ searchParams }: HomeProps) {
   const userName = searchParams?.search;
+  const page = searchParams?.page;
 
   return (
     <main className="p-6">
-      <RepositoryList userName={userName} />
+      <RepositoryList userName={userName} page={page} />
     </main>
   );
 }

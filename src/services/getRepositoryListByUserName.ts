@@ -1,7 +1,5 @@
 import githubApi from "@/services/githubApi";
 
-const repositoryCache = new Map<string, any[]>();
-
 export async function getRepositoryListByUserName({
   userName,
   page = 1,
@@ -13,8 +11,6 @@ export async function getRepositoryListByUserName({
 }) {
   if (!userName) return [];
 
-  let cachedData = repositoryCache.get(userName) || [];
-
   try {
     const response = await githubApi.get(`/users/${userName}/repos`, {
       params: {
@@ -23,17 +19,7 @@ export async function getRepositoryListByUserName({
       },
     });
 
-    if (page === 1) {
-      repositoryCache.set(userName, response.data);
-
-      return response.data;
-    } else {
-      cachedData = [...cachedData, ...response.data];
-
-      repositoryCache.set(userName, cachedData);
-
-      return cachedData;
-    }
+    return response.data;
   } catch (error) {
     console.log("error", error);
   }
