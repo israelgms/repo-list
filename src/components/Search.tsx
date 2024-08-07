@@ -1,12 +1,13 @@
 "use client";
 
 import { SearchIcon } from "lucide-react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 export function Search() {
   const searchParams = useSearchParams();
   const route = useRouter();
+  const pathname = usePathname();
   const [searchValue, setSearchValue] = useState("");
 
   function handleSearch(value: string) {
@@ -14,7 +15,12 @@ export function Search() {
 
     query.set("search", value);
     query.delete("page");
-    route.push(`?${query}`);
+
+    if (pathname !== "/") {
+      route.push(`/?${query}`);
+    } else {
+      route.push(`?${query}`);
+    }
   }
 
   const debounce = (onChange: (value: string) => void) => {

@@ -28,8 +28,8 @@ export default async function Home({ searchParams }: HomeProps) {
 
   return (
     <main className="p-6">
-      <div className="flex gap-12">
-        {userData?.length > 0 && (
+      <div className="flex gap-12 flex-wrap md:flex-nowrap">
+        {userData && (
           <div>
             <UserCard {...userData} />
           </div>

@@ -64,6 +64,11 @@ export function RepositoryItem({
     }
 
     localStorage.setItem("favoriteList", JSON.stringify(newFavoriteList));
+
+    const updateEvent = new CustomEvent("favoriteListUpdated", {
+      detail: { newFavoriteList },
+    });
+    window.dispatchEvent(updateEvent);
   }
 
   const updatedAt = new Date(updated_at);
