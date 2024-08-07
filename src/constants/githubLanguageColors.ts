@@ -1,4 +1,5 @@
 export const githubLanguageColors = {
+  default: "#CCCCCC",
   ABAP: "#E8274B",
   ActionScript: "#882B0F",
   Ada: "#02f88c",

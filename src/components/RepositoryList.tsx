@@ -3,7 +3,6 @@ import { RepositoryItem } from "./RepositoryItem";
 import React from "react";
 import { RepositoryIntersectionObserver } from "./RepositoryIntersectionObserver";
 
-
 interface RepositoryListProps {
   userName?: string;
   page?: number;

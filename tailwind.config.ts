@@ -17,15 +17,19 @@ const config: Config = {
         primary: {
           DEFAULT: "#32C0C6",
         },
+        info: {
+          DEFAULT: "#8C8C8C",
+          LIGHT: "#F3F3F5",
+        },
         secondary: {
           DEFAULT: "hsl(var(--foreground-rgb))",
           LIGHT: "#FFFFFF",
-          DARK: "#000000"
+          DARK: "#000000",
         },
         neutral: {
           DEFAULT: "#616161",
         },
-        divider: "#E3E6E9"
+        divider: "#E3E6E9",
       },
     },
   },

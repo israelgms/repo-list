@@ -1,4 +1,5 @@
 import githubApi from "@/services/githubApi";
+import { RepositoryListProps } from "@/types/github";
 
 const repositoryCache = new Map<string, any[]>();
 
@@ -10,7 +11,7 @@ export async function getRepositoryListByUserName({
   userName?: string;
   page?: number;
   perPage?: number;
-}) {
+}): Promise<RepositoryListProps | []> {
   if (!userName) return [];
 
   let cachedData = repositoryCache.get(userName) || [];
@@ -36,5 +37,6 @@ export async function getRepositoryListByUserName({
     }
   } catch (error) {
     console.log("error", error);
+    return cachedData;
   }
 }
