@@ -12,6 +12,7 @@ export function RepositoryItem({
   language,
   name,
   description,
+  updated_at,
 }: RepositoryItemProps) {
   const color = githubLanguageColors[(language as Language) || "default"];
 
@@ -53,35 +54,47 @@ export function RepositoryItem({
       } else {
         newFavoriteList = [
           ...currentFavoriteList,
-          { id, language, name, description },
+          { id, language, name, description, updated_at },
         ];
 
         setIsFavorited(true);
       }
     } else {
-      newFavoriteList = [{ id, language, name, description }];
+      newFavoriteList = [{ id, language, name, description, updated_at }];
     }
 
     localStorage.setItem("favoriteList", JSON.stringify(newFavoriteList));
   }
 
-  const marginBottomClass = !language && !description ? "mb-6" : "mb-0";
+  const updatedAt = new Date(updated_at);
+  const formattedDate = updatedAt.toLocaleDateString("pt-BR", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  });
 
   return (
-    <div className="rounded-md border border-divider p-4 relative">
-      <h2 className={marginBottomClass}>{name}</h2>
+    <div className="flex flex-col gap-2 rounded-md border border-divider p-4 relative">
+      <h2 className="text-neutral font-semibold">{name}</h2>
 
-      <p>{description}</p>
-
-      {language && (
-        <div className="flex gap-2 items-center">
-          <div
-            style={{ backgroundColor: color }}
-            className="rounded-full h-4 w-4"
-          />
-          <span>{language}</span>
-        </div>
+      {description ? (
+        <p className="text-sm text-info">{description}</p>
+      ) : (
+        <div className="h-5" />
       )}
+
+      <div className="flex gap-4">
+        {language && (
+          <div className="flex gap-2 items-center">
+            <div
+              style={{ backgroundColor: color }}
+              className="rounded-full h-4 w-4"
+            />
+            <span className="text-xs text-neutral">{language}</span>
+          </div>
+        )}
+        <span className="text-xs text-neutral">{formattedDate}</span>
+      </div>
 
       <div
         className={`flex items-center justify-center rounded-full h-10 w-10 absolute right-4 top-4 cursor-pointer bg-info-LIGHT border transition-colors duration-700 ${

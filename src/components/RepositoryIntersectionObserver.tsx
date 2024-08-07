@@ -8,6 +8,10 @@ export function RepositoryIntersectionObserver() {
   const route = useRouter();
 
   useEffect(() => {
+    const sentinel = document.querySelector("#sentinel");
+
+    if (!sentinel) return;
+
     const intersectionObserver = new IntersectionObserver((entries) => {
       if (entries.some((entry) => entry.isIntersecting)) {
         const query = new URLSearchParams(searchParams.toString());
@@ -20,7 +24,7 @@ export function RepositoryIntersectionObserver() {
         route.replace(`?${query}`);
       }
     });
-    intersectionObserver.observe(document.querySelector("#sentinel"));
+    intersectionObserver.observe(sentinel);
     return () => intersectionObserver.disconnect();
   }, [searchParams]);
 

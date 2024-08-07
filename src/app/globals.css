@@ -14,6 +14,18 @@
   --secondary-dark-color: #000000;
   --neutral-color: #616161;
   --divider-color: #E3E6E9;
+
+  h1 {
+    font-size: 21px;
+  }
+
+  p {
+    font-size: 14px;
+  }
+
+  span {
+    font-weight: 400;
+  }
 }
 
 @media (prefers-color-scheme: dark) {

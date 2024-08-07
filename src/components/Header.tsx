@@ -5,8 +5,10 @@ import { Search } from "./Search";
 export function Header() {
   return (
     <header>
-      <div className="flex justify-between pl-6">
-        <Search />
+      <div className="flex justify-between items-center pl-6 gap-2">
+        <div className="w-6/12">
+          <Search />
+        </div>
 
         <nav>
           <Link href="/favorites">

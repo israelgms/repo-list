@@ -1,16 +1,19 @@
 "use client";
 
+import { SearchIcon } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 export function Search() {
   const searchParams = useSearchParams();
   const route = useRouter();
+  const [searchValue, setSearchValue] = useState("");
 
   function handleSearch(value: string) {
     const query = new URLSearchParams(searchParams.toString());
 
     query.set("search", value);
+    query.delete("page");
     route.push(`?${query}`);
   }
 
@@ -27,13 +30,35 @@ export function Search() {
     };
   };
 
+  useEffect(() => {
+    const searchValue = searchParams.get("search");
+    if (searchValue) {
+      setSearchValue(searchValue);
+    }
+  }, []);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(e.currentTarget.value);
+    debounce(handleSearch)(e);
+  };
+
   return (
-    <input
-      type="text"
-      placeholder="Buscar usuário"
-      onChange={debounce((value: string) => {
-        handleSearch(value);
-      })}
-    />
+    <div style={{ position: "relative" }}>
+      <input
+        type="text"
+        placeholder="Buscar usuário"
+        value={searchValue}
+        onChange={handleInputChange}
+        className="pr-4 pl-4 pb-2 pt-2 border rounded-lg text-sm w-full"
+      />
+      <SearchIcon
+        className="text-info"
+        style={{
+          position: "absolute",
+          right: "10px",
+          top: "15%",
+        }}
+      />
+    </div>
   );
 }

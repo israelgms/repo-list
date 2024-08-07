@@ -2,6 +2,7 @@ import { getRepositoryListByUserName } from "@/app/actions";
 import { RepositoryItem } from "./RepositoryItem";
 import React from "react";
 import { RepositoryIntersectionObserver } from "./RepositoryIntersectionObserver";
+import { UserNotFound } from "./UserNotFound";
 
 interface RepositoryListProps {
   userName?: string;
@@ -9,21 +10,31 @@ interface RepositoryListProps {
 }
 
 export async function RepositoryList({ userName, page }: RepositoryListProps) {
-  const repositoryList = await getRepositoryListByUserName({
-    userName,
-    page,
-  });
+  const { data: repositoryList, statusCode } =
+    await getRepositoryListByUserName({
+      userName,
+      page,
+    });
 
   return (
-    <div className="flex flex-col gap-4">
-      <h1>Repositórios</h1>
-      {repositoryList?.map((repository) => (
-        <React.Fragment key={repository.id}>
-          <RepositoryItem {...repository} />
-        </React.Fragment>
-      ))}
+    <section className="w-full">
+      {statusCode === 200 ? (
+        <div className="flex flex-col gap-4 flex-1">
+          <h1 className="text-primary font-semibold">Repositórios</h1>
 
-      {repositoryList?.length > 5 && <RepositoryIntersectionObserver />}
-    </div>
+          {repositoryList?.map((repository) => (
+            <React.Fragment key={repository.id}>
+              <RepositoryItem {...repository} />
+            </React.Fragment>
+          ))}
+
+          {repositoryList?.length > 5 && <RepositoryIntersectionObserver />}
+        </div>
+      ) : (
+        <div className="flex justify-center">
+          <UserNotFound userName={userName} />
+        </div>
+      )}
+    </section>
   );
 }

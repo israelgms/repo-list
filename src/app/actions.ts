@@ -1,7 +1,12 @@
 import githubApi from "@/services/githubApi";
-import { RepositoryListProps } from "@/types/github";
+import { RepositoryItemProps } from "@/types/github";
 
 const repositoryCache = new Map<string, any[]>();
+
+interface RepositoryResponse {
+  statusCode: number;
+  data: RepositoryItemProps[];
+}
 
 export async function getRepositoryListByUserName({
   userName,
@@ -11,8 +16,8 @@ export async function getRepositoryListByUserName({
   userName?: string;
   page?: number;
   perPage?: number;
-}): Promise<RepositoryListProps | []> {
-  if (!userName) return [];
+}): Promise<RepositoryResponse> {
+  if (!userName) return { statusCode: 400, data: [] };
 
   let cachedData = repositoryCache.get(userName) || [];
 
@@ -27,16 +32,15 @@ export async function getRepositoryListByUserName({
     if (page === 1) {
       repositoryCache.set(userName, response.data);
 
-      return response.data;
+      return { statusCode: 200, data: response.data };
     } else {
       cachedData = [...cachedData, ...response.data];
 
       repositoryCache.set(userName, cachedData);
 
-      return cachedData;
+      return { statusCode: 200, data: cachedData };
     }
-  } catch (error) {
-    console.log("error", error);
-    return cachedData;
+  } catch (_) {
+    return { statusCode: 400, data: cachedData };
   }
 }
