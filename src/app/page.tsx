@@ -3,15 +3,15 @@ import Image from "next/image";
 
 interface HomeProps {
   searchParams: {
-    userName: string;
+    search: string;
   };
 }
 
 export default function Home({ searchParams }: HomeProps) {
-  const userName = searchParams?.userName;
+  const userName = searchParams?.search;
 
   return (
-    <main>
+    <main className="p-6">
       <RepositoryList userName={userName} />
     </main>
   );
