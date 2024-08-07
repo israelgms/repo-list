@@ -5,7 +5,7 @@ export default function SearchByUserInfo() {
     <div className="flex flex-col gap-12 text-center items-center mt-20">
       <div>
         <h1 className="font-semibold text-neutral">
-          Procure pelo Nome ou Nome de Usuário
+          Procure pelo login do Usuário
         </h1>
         <p className="text-neutral">
           Encontre os repositórios de algum usuário digitando no campo acima
