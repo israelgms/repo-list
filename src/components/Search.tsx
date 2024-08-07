@@ -1,12 +1,17 @@
 "use client";
 
+import { useRouter, useSearchParams } from "next/navigation";
 import React from "react";
 
 export function Search() {
-  function handleSearch(value: string) {
-    if (!value || value === "") return;
+  const searchParams = useSearchParams();
+  const route = useRouter();
 
-    
+  function handleSearch(value: string) {
+    const query = new URLSearchParams(searchParams.toString());
+
+    query.set("search", value);
+    route.push(`?${query}`);
   }
 
   const debounce = (onChange: (value: string) => void) => {
