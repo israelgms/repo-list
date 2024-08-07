@@ -1,11 +1,12 @@
 import { Heart } from "lucide-react";
 import Link from "next/link";
+import { Search } from "./Search";
 
-export function Header({}) {
+export function Header() {
   return (
     <header>
       <div className="flex justify-between pl-6">
-        <input type="text" placeholder="Buscar usuário" />
+        <Search />
 
         <nav>
           <Link href="/favorites">
