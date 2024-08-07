@@ -25,6 +25,7 @@ const config: Config = {
         neutral: {
           DEFAULT: "#616161",
         },
+        divider: "#E3E6E9"
       },
     },
   },
