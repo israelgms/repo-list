@@ -4,6 +4,10 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 First, run the development server:
 
+## env
+
+You can use .env.local variable -> "GITHUB_TOKEN" with your github token
+
 ```bash
 npm run dev
 # or
